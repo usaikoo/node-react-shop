@@ -20,9 +20,6 @@ app.listen(PORT || 9000, () => {
 
 
 
-//usaikodev
-//qJFgIlDe06anPajq
-//mongodb+srv://usaikodev:qJFgIlDe06anPajq@cluster0.ywfntef.mongodb.net/REACT-NODE-APP
 
 
 //api product test route
