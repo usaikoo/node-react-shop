@@ -16,7 +16,7 @@ mongoose
 
 const databaseSeeder = require("./databaseSeeder");
 const userRoute = require("./routes/User");
-
+const productRoute = require("./routes/Product")
 
 app.use(express.json())
 
@@ -28,9 +28,27 @@ app.use("/api/seed", databaseSeeder);
 //routes for users
 app.use("/api/users", userRoute);
 
+//routes for products
+app.use("/api/products", productRoute);
+
 app.listen(PORT || 9000, () => {
   console.log(`server listening on port ${PORT}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //api product test route
 // app.get("/api/products", (req, res) => {
