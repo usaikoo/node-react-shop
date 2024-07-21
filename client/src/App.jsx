@@ -1,15 +1,22 @@
-import { Children, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 
-import Layout from "./Layouts/Layouts";
-import Products from "./components/Products";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import ProductDetail from "./pages/ProductDetail";
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <Layout>
-      <Products></Products>
-    </Layout>
+    <>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Home />}></Route>
+          <Route exact path="/detail/:id" element={<ProductDetail />}></Route>
+        </Routes>
+      </Router>
+    </>
   );
 }
 

@@ -14,7 +14,7 @@ router.post(
   })
 );
 
-router.post(
+router.get(
   "/products",
   AsynHandler(async (req, res) => {
     await Product.deleteMany({});
