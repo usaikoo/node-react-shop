@@ -1,4 +1,16 @@
+import { useDispatch, useSelector } from "react-redux";
+import { UserDropdown } from "../components/Dropdown";
+import { Link } from "react-router-dom";
+import { userLogoutAction } from "../Redux/Actions/User";
+
 const Navbar = () => {
+  const userLoginReducer = useSelector((state) => state.userLoginReducer)
+  const { userInfo } = userLoginReducer
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(userLogoutAction())
+  }
   return (
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -10,16 +22,21 @@ const Navbar = () => {
               alt="Flowbite Logo"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Flowbite
+              Node Shop.
             </span>
           </a>
           <div className="flex md:order-2">
-            <button
-              type="button"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Get started
-            </button>
+            {!userInfo ? (
+              <Link
+                to="/register"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Get started
+              </Link>
+            ) : (
+              <UserDropdown logoutHandler = {logoutHandler} ></UserDropdown>
+            )}
+
             <button
               data-collapse-toggle="navbar-cta"
               type="button"
@@ -57,30 +74,6 @@ const Navbar = () => {
                   aria-current="page"
                 >
                   Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Services
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Contact
                 </a>
               </li>
             </ul>
