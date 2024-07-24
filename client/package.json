@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.2",
+    "@heroicons/react": "^2.1.5",
+    "@paypal/react-paypal-js": "^8.5.0",
     "axios": "^1.7.2",
     "flowbite": "^1.8.1",
     "flowbite-react": "^0.6.4",

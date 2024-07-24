@@ -9,7 +9,9 @@ import ProductDetail from "./pages/ProductDetail";
 import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import Checkout from "./pages/Checkout";
 import { useSelector } from "react-redux";
+import PlaceOrder from "./pages/PlaceOrder";
 
 function App() {
 
@@ -29,8 +31,11 @@ function App() {
           <Route
             exact
             path="/register"
-            element={userInfo ? <Navigate to="/"></Navigate> :  <Register />}
+            element={userInfo ? <Navigate to="/"></Navigate> : <Register />}
           ></Route>
+
+          <Route exact path="/checkout" element={<Checkout />}></Route>
+          <Route exact path="/placeorder" element={<PlaceOrder />}></Route>
         </Routes>
       </Router>
     </>
