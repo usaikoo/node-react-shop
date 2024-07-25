@@ -6,12 +6,16 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import axios from "axios";
 import { BASE_URL } from "../Redux/Constants/BASE_URL";
 
-import { orderAction } from "../Redux/Actions/Order";
+import { orderAction, orderPaymentAction } from "../Redux/Actions/Order";
 import { saveShippingAddressAction } from "../Redux/Actions/Cart";
+import { ORDER_RESET } from "../Redux/Constants/Order";
+import { useNavigate } from "react-router-dom";
 
 export default function PlaceOrder() {
   const cart = useSelector((state) => state.cartReducer);
   const { cartItems, shippingAddress } = cart;
+
+  //end
 
   // subtotal (does not include the tax , shipping fee)
   const addDecimal = (num) => {
@@ -39,21 +43,37 @@ export default function PlaceOrder() {
 
   const [clientId, setClientId] = useState(null);
 
+  //added for order confirm
+
+    const orderReducer = useSelector((state) => state.orderReducer);
+    const { order, success } = orderReducer;
+    const [paymentResult, setPaymentResult] = useState({});
+
+    const navigate = useNavigate();
+
   useEffect(() => {
     getPaypalClientID();
+
+    //add for order confirm , payment success
+
+    if (success) {
+      dispatch({ type: ORDER_RESET });
+      dispatch(orderPaymentAction(order._id, paymentResult));
+      navigate(`/order/${order._id}`, {});
+    }
   });
 
   const getPaypalClientID = async () => {
     const response = await axios.get(`${BASE_URL}/api/config/paypal`);
     const fetchedClientId = response.data;
+
     setClientId(fetchedClientId);
   };
   const dispatch = useDispatch();
 
-  console.log(address);
-
-  const successPaymentHandler = async () => {
+  const successPaymentHandler = async (paymentResult) => {
     try {
+      setPaymentResult(paymentResult);
       dispatch(
         orderAction({
           orderItems: cart.cartItems,
